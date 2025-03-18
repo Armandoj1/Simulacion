@@ -1,0 +1,787 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulador de Salario - Profesores UPC</title>
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --accent-color: #e74c3c;
+            --light-color: #ecf0f1;
+            --dark-color: #2c3e50;
+            --success-color: #2ecc71;
+            --warning-color: #f39c12;
+            --danger-color: #e74c3c;
+        }
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f5f5;
+            color: var(--dark-color);
+            line-height: 1.6;
+        }
+        
+        header {
+            background-color: var(--primary-color);
+            color: white;
+            text-align: center;
+            padding: 1.5rem;
+            position: relative;
+        }
+        
+        header h1 {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        header p {
+            font-size: 1rem;
+            opacity: 0.8;
+        }
+        
+        .logo {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 60px;
+            height: 60px;
+            background-color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: var(--primary-color);
+            font-size: 1.2rem;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 2rem;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+        }
+        
+        .card {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .card h2 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid #eee;
+        }
+        
+        .form-group {
+            margin-bottom: 1rem;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+        
+        select, input {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 1rem;
+        }
+        
+        select:focus, input:focus {
+            outline: none;
+            border-color: var(--secondary-color);
+        }
+        
+        button {
+            background-color: var(--secondary-color);
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: background-color 0.3s;
+        }
+        
+        button:hover {
+            background-color: #2980b9;
+        }
+        
+        .result {
+            margin-top: 1.5rem;
+            padding: 1rem;
+            background-color: #f9f9f9;
+            border-radius: 4px;
+            border-left: 4px solid var(--secondary-color);
+        }
+        
+        .result-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .result-item:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+        
+        .total {
+            font-weight: 700;
+            color: var(--primary-color);
+            font-size: 1.1rem;
+        }
+        
+        .chart-container {
+            width: 100%;
+            height: 300px;
+            margin-top: 1rem;
+            position: relative;
+        }
+        
+        .columns {
+            display: flex;
+            align-items: flex-end;
+            height: 250px;
+            width: 100%;
+            margin-top: 10px;
+        }
+        
+        .column {
+            flex: 1;
+            margin: 0 5px;
+            background-color: var(--secondary-color);
+            transition: height 0.5s;
+            position: relative;
+            border-radius: 4px 4px 0 0;
+            display: flex;
+            justify-content: center;
+        }
+        
+        .column-label {
+            position: absolute;
+            bottom: -20px;
+            font-size: 0.7rem;
+            text-align: center;
+            transform: rotate(-45deg);
+            transform-origin: top left;
+            width: 100px;
+        }
+        
+        .y-axis {
+            position: absolute;
+            left: -30px;
+            top: 0;
+            height: 250px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        
+        .y-label {
+            font-size: 0.7rem;
+            color: #777;
+        }
+        
+        .simulation-controls {
+            margin-top: 1rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        
+        .scenario-card {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            padding: 1rem;
+            margin-top: 1rem;
+            border-left: 4px solid var(--warning-color);
+        }
+        
+        .scenario-title {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--dark-color);
+        }
+        
+        .info-icon {
+            display: inline-block;
+            width: 18px;
+            height: 18px;
+            background-color: #ddd;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 18px;
+            font-size: 0.7rem;
+            margin-left: 5px;
+            cursor: help;
+            position: relative;
+        }
+        
+        .tooltip {
+            position: absolute;
+            background-color: #333;
+            color: white;
+            padding: 0.5rem;
+            border-radius: 4px;
+            width: 200px;
+            z-index: 10;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            display: none;
+            font-size: 0.8rem;
+        }
+        
+        .info-icon:hover .tooltip {
+            display: block;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                grid-template-columns: 1fr;
+            }
+            
+            .logo {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">UPC</div>
+        <h1>Simulador de Salario para Profesores Ocasionales</h1>
+        <p>Universidad Popular del Cesar - Acuerdo 006 de 2018</p>
+    </header>
+    
+    <div class="container">
+        <div class="left-column">
+            <div class="card">
+                <h2>Parámetros del Profesor</h2>
+                <div class="form-group">
+                    <label for="smmlv">SMMLV (Salario Mínimo Mensual Legal Vigente) <span class="info-icon">?<span class="tooltip">Valor del salario mínimo mensual legal vigente para el año de cálculo.</span></span></label>
+                    <input type="number" id="smmlv" value="1160000" min="908526" step="10000">
+                </div>
+                
+                <div class="form-group">
+                    <label for="category">Categoría Docente <span class="info-icon">?<span class="tooltip">Categoría académica del profesor según su formación y experiencia.</span></span></label>
+                    <select id="category">
+                        <option value="auxiliar">Auxiliar</option>
+                        <option value="asistente">Asistente</option>
+                        <option value="asociado">Asociado</option>
+                        <option value="titular">Titular</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="dedication">Dedicación <span class="info-icon">?<span class="tooltip">Tiempo de dedicación del profesor a la universidad.</span></span></label>
+                    <select id="dedication">
+                        <option value="tc">Tiempo Completo</option>
+                        <option value="mt">Medio Tiempo</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="qualification">Cualificación de Postgrado <span class="info-icon">?<span class="tooltip">Máximo nivel de estudio de postgrado alcanzado por el profesor.</span></span></label>
+                    <select id="qualification">
+                        <option value="none">Ninguno</option>
+                        <option value="especializacion">Especialización</option>
+                        <option value="maestria">Maestría</option>
+                        <option value="doctorado">Doctorado</option>
+                        <option value="postdoctorado">Postdoctorado</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="research">Grupo de Investigación <span class="info-icon">?<span class="tooltip">Categoría del grupo de investigación al que pertenece según Colciencias.</span></span></label>
+                    <select id="research">
+                        <option value="none">Ninguno</option>
+                        <option value="semillero">Semillero</option>
+                        <option value="reconocido">Reconocido por Colciencias</option>
+                        <option value="c">C</option>
+                        <option value="b">B</option>
+                        <option value="a">A</option>
+                        <option value="a1">A1</option>
+                    </select>
+                </div>
+                
+                <button id="calculate-btn">Calcular Salario</button>
+                
+                <div class="result" id="result">
+                    <div class="result-item">
+                        <span>Salario Base:</span>
+                        <span id="base-salary">$0</span>
+                    </div>
+                    <div class="result-item">
+                        <span>Bonificación por Postgrado:</span>
+                        <span id="postgrad-bonus">$0</span>
+                    </div>
+                    <div class="result-item">
+                        <span>Bonificación por Investigación:</span>
+                        <span id="research-bonus">$0</span>
+                    </div>
+                    <div class="result-item total">
+                        <span>Salario Total:</span>
+                        <span id="total-salary">$0</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card">
+                <h2>Simulación de Escenarios</h2>
+                <div class="form-group">
+                    <label for="simulation-type">Tipo de Simulación:</label>
+                    <select id="simulation-type">
+                        <option value="comparison">Comparación por Categoría</option>
+                        <option value="qualification">Impacto de Cualificación</option>
+                        <option value="research">Impacto de Investigación</option>
+                        <option value="smmlv">Impacto de Incremento de SMMLV</option>
+                    </select>
+                </div>
+                
+                <div class="simulation-controls">
+                    <button id="run-simulation-btn">Ejecutar Simulación</button>
+                    <button id="reset-simulation-btn">Reiniciar</button>
+                </div>
+                
+                <div class="chart-container">
+                    <div class="y-axis">
+                        <div class="y-label">100%</div>
+                        <div class="y-label">75%</div>
+                        <div class="y-label">50%</div>
+                        <div class="y-label">25%</div>
+                        <div class="y-label">0%</div>
+                    </div>
+                    <div class="columns" id="chart">
+                        <!-- Columnas del gráfico se generarán mediante JavaScript -->
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="right-column">
+            <div class="card">
+                <h2>Resultados de la Simulación</h2>
+                <div id="simulation-results">
+                    <p>Ejecute una simulación para ver los resultados detallados.</p>
+                </div>
+            </div>
+            
+            <div class="card">
+                <h2>Análisis de Impacto Financiero</h2>
+                <div class="form-group">
+                    <label for="num-professors">Número de Profesores:</label>
+                    <input type="number" id="num-professors" value="50" min="1" max="1000">
+                </div>
+                
+                <div class="form-group">
+                    <label for="distribution">Distribución:</label>
+                    <select id="distribution">
+                        <option value="equal">Igual por categorías</option>
+                        <option value="pyramid">Pirámide (más auxiliares)</option>
+                        <option value="inverse">Inversa (más titulares)</option>
+                    </select>
+                </div>
+                
+                <button id="calculate-impact-btn">Calcular Impacto</button>
+                
+                <div id="impact-results" class="result" style="display: none;">
+                    <div class="result-item">
+                        <span>Costo Mensual Total:</span>
+                        <span id="monthly-cost">$0</span>
+                    </div>
+                    <div class="result-item">
+                        <span>Costo Anual Total:</span>
+                        <span id="annual-cost">$0</span>
+                    </div>
+                    <div class="result-item">
+                        <span>Porcentaje del Presupuesto (est.):</span>
+                        <span id="budget-percentage">0%</span>
+                    </div>
+                </div>
+                
+                <div class="scenario-card">
+                    <div class="scenario-title">Escenarios de Riesgo Financiero</div>
+                    <p>Basado en el Acuerdo 006 de 2018, se identifican los siguientes escenarios extremos:</p>
+                    <ul style="margin-top: 0.5rem; padding-left: 1.5rem;">
+                        <li>Alta concentración de profesores en categorías superiores (Titular y Asociado)</li>
+                        <li>Mayoría de profesores con Doctorado y pertenecientes a grupos A1</li>
+                        <li>Incrementos significativos del SMMLV sin ajuste presupuestal proporcional</li>
+                        <li>Desequilibrio entre profesores de tiempo completo vs medio tiempo</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // Constantes del modelo según el Acuerdo 006 de 2018
+        const SALARY_FACTORS = {
+            auxiliar: {
+                tc: 2.645,
+                mt: 1.509
+            },
+            asistente: {
+                tc: 3.125,
+                mt: 1.749
+            },
+            asociado: {
+                tc: 3.606,
+                mt: 1.990
+            },
+            titular: {
+                tc: 3.918,
+                mt: 2.146
+            }
+        };
+        
+        const QUALIFICATION_FACTORS = {
+            none: 0,
+            especializacion: 0.10,
+            maestria: 0.45,
+            doctorado: 0.90,
+            postdoctorado: 0
+        };
+        
+        const RESEARCH_FACTORS = {
+            none: 0,
+            semillero: 0.19,
+            reconocido: 0.33,
+            c: 0.38,
+            b: 0.42,
+            a: 0.47,
+            a1: 0.56
+        };
+        
+        // Función para formatear números como moneda colombiana
+        function formatCurrency(value) {
+            return new Intl.NumberFormat('es-CO', {
+                style: 'currency',
+                currency: 'COP',
+                minimumFractionDigits: 0
+            }).format(value);
+        }
+        
+        // Función para calcular el salario
+        function calculateSalary() {
+            const smmlv = parseFloat(document.getElementById('smmlv').value);
+            const category = document.getElementById('category').value;
+            const dedication = document.getElementById('dedication').value;
+            const qualification = document.getElementById('qualification').value;
+            const research = document.getElementById('research').value;
+            
+            // Calcular salario base
+            const baseSalary = SALARY_FACTORS[category][dedication] * smmlv;
+            
+            // Calcular bonificaciones
+            const postgraduateBonus = QUALIFICATION_FACTORS[qualification] * smmlv;
+            const researchBonus = RESEARCH_FACTORS[research] * smmlv;
+            
+            // Calcular salario total
+            const totalSalary = baseSalary + postgraduateBonus + researchBonus;
+            
+            // Mostrar resultados
+            document.getElementById('base-salary').textContent = formatCurrency(baseSalary);
+            document.getElementById('postgrad-bonus').textContent = formatCurrency(postgraduateBonus);
+            document.getElementById('research-bonus').textContent = formatCurrency(researchBonus);
+            document.getElementById('total-salary').textContent = formatCurrency(totalSalary);
+            
+            return {
+                baseSalary,
+                postgraduateBonus,
+                researchBonus,
+                totalSalary
+            };
+        }
+        
+        // Función para ejecutar simulaciones
+        function runSimulation() {
+            const simulationType = document.getElementById('simulation-type').value;
+            const smmlv = parseFloat(document.getElementById('smmlv').value);
+            const chart = document.getElementById('chart');
+            const resultsContainer = document.getElementById('simulation-results');
+            
+            chart.innerHTML = '';
+            let htmlContent = '<div class="result">';
+            
+            // Configurar la simulación según el tipo
+            let labels = [];
+            let values = [];
+            let descriptions = [];
+            
+            switch(simulationType) {
+                case 'comparison':
+                    labels = ['Aux TC', 'Aux MT', 'Asis TC', 'Asis MT', 'Asoc TC', 'Asoc MT', 'Tit TC', 'Tit MT'];
+                    
+                    // Calcular valores para cada categoría
+                    const categories = ['auxiliar', 'asistente', 'asociado', 'titular'];
+                    const dedications = ['tc', 'mt'];
+                    
+                    categories.forEach(cat => {
+                        dedications.forEach(ded => {
+                            const baseSalary = SALARY_FACTORS[cat][ded] * smmlv;
+                            values.push(baseSalary);
+                            
+                            const fullCat = cat === 'auxiliar' ? 'Auxiliar' : 
+                                           cat === 'asistente' ? 'Asistente' : 
+                                           cat === 'asociado' ? 'Asociado' : 'Titular';
+                            const fullDed = ded === 'tc' ? 'Tiempo Completo' : 'Medio Tiempo';
+                            
+                            descriptions.push(`${fullCat} ${fullDed}: ${formatCurrency(baseSalary)}`);
+                        });
+                    });
+                    
+                    htmlContent += '<h3>Comparación de Salario Base por Categoría</h3>';
+                    break;
+                
+                case 'qualification':
+                    labels = ['Ninguno', 'Espec.', 'Maestría', 'Doctorado', 'Post-Doc'];
+                    const qualifications = ['none', 'especializacion', 'maestria', 'doctorado', 'postdoctorado'];
+                    
+                    // Usar valores actuales para el resto de parámetros
+                    const category = document.getElementById('category').value;
+                    const dedication = document.getElementById('dedication').value;
+                    const research = document.getElementById('research').value;
+                    
+                    // Calcular base
+                    const baseSalary = SALARY_FACTORS[category][dedication] * smmlv;
+                    const researchBonus = RESEARCH_FACTORS[research] * smmlv;
+                    
+                    qualifications.forEach(qual => {
+                        const postgraduateBonus = QUALIFICATION_FACTORS[qual] * smmlv;
+                        const totalSalary = baseSalary + postgraduateBonus + researchBonus;
+                        values.push(totalSalary);
+                        
+                        const fullQual = qual === 'none' ? 'Ninguno' : 
+                                        qual === 'especializacion' ? 'Especialización' : 
+                                        qual === 'maestria' ? 'Maestría' : 
+                                        qual === 'doctorado' ? 'Doctorado' : 'Post-Doctorado';
+                        
+                        descriptions.push(`${fullQual}: ${formatCurrency(totalSalary)} (Bonus: ${formatCurrency(postgraduateBonus)})`);
+                    });
+                    
+                    htmlContent += '<h3>Impacto de la Cualificación de Postgrado</h3>';
+                    break;
+                
+                case 'research':
+                    labels = ['Ninguno', 'Semillero', 'Reconocido', 'C', 'B', 'A', 'A1'];
+                    const researchGroups = ['none', 'semillero', 'reconocido', 'c', 'b', 'a', 'a1'];
+                    
+                    // Usar valores actuales para el resto de parámetros
+                    const catR = document.getElementById('category').value;
+                    const dedR = document.getElementById('dedication').value;
+                    const qualR = document.getElementById('qualification').value;
+                    
+                    // Calcular base
+                    const baseSalaryR = SALARY_FACTORS[catR][dedR] * smmlv;
+                    const postgraduateBonusR = QUALIFICATION_FACTORS[qualR] * smmlv;
+                    
+                    researchGroups.forEach(res => {
+                        const resBonus = RESEARCH_FACTORS[res] * smmlv;
+                        const totalSalary = baseSalaryR + postgraduateBonusR + resBonus;
+                        values.push(totalSalary);
+                        
+                        const fullRes = res === 'none' ? 'Ninguno' : 
+                                      res === 'semillero' ? 'Semillero' : 
+                                      res === 'reconocido' ? 'Reconocido' : res.toUpperCase();
+                        
+                        descriptions.push(`${fullRes}: ${formatCurrency(totalSalary)} (Bonus: ${formatCurrency(resBonus)})`);
+                    });
+                    
+                    htmlContent += '<h3>Impacto del Grupo de Investigación</h3>';
+                    break;
+                
+                case 'smmlv':
+                    const baseSmmlv = smmlv;
+                    const increments = [0, 0.05, 0.10, 0.15, 0.20];
+                    labels = ['Actual', '+5%', '+10%', '+15%', '+20%'];
+                    
+                    // Usar valores actuales
+                    const catS = document.getElementById('category').value;
+                    const dedS = document.getElementById('dedication').value;
+                    const qualS = document.getElementById('qualification').value;
+                    const resS = document.getElementById('research').value;
+                    
+                    increments.forEach((inc, idx) => {
+                        const projectedSmmlv = baseSmmlv * (1 + inc);
+                        
+                        // Calcular con el SMMLV proyectado
+                        const baseSalaryS = SALARY_FACTORS[catS][dedS] * projectedSmmlv;
+                        const postgraduateBonusS = QUALIFICATION_FACTORS[qualS] * projectedSmmlv;
+                        const resBonusS = RESEARCH_FACTORS[resS] * projectedSmmlv;
+                        const totalSalary = baseSalaryS + postgraduateBonusS + resBonusS;
+                        
+                        values.push(totalSalary);
+                        
+                        descriptions.push(`SMMLV ${formatCurrency(projectedSmmlv)}: ${formatCurrency(totalSalary)}`);
+                    });
+                    
+                    htmlContent += '<h3>Impacto del Incremento del SMMLV</h3>';
+                    break;
+            }
+            
+            // Encontrar el valor máximo para escalar el gráfico
+            const maxValue = Math.max(...values);
+            
+            // Crear el gráfico
+            values.forEach((value, index) => {
+                const height = (value / maxValue) * 100;
+                const column = document.createElement('div');
+                column.className = 'column';
+                column.style.height = `${height}%`;
+                
+                const label = document.createElement('div');
+                label.className = 'column-label';
+                label.textContent = labels[index];
+                
+                column.appendChild(label);
+                chart.appendChild(column);
+            });
+            
+            // Mostrar resultados detallados
+            htmlContent += '<ul style="margin-top: 1rem; list-style-type: none; padding: 0;">';
+            descriptions.forEach(desc => {
+                htmlContent += `<li style="margin-bottom: 0.5rem; padding-bottom: 0.5rem; border-bottom: 1px solid #eee;">${desc}</li>`;
+            });
+            htmlContent += '</ul></div>';
+            
+            resultsContainer.innerHTML = htmlContent;
+        }
+        
+        // Función para calcular el impacto financiero
+        function calculateImpact() {
+            const numProfessors = parseInt(document.getElementById('num-professors').value);
+            const distribution = document.getElementById('distribution').value;
+            const smmlv = parseFloat(document.getElementById('smmlv').value);
+            
+            let totalMonthlyCost = 0;
+            const categories = ['auxiliar', 'asistente', 'asociado', 'titular'];
+            const dedications = ['tc', 'mt'];
+            
+            // Distribución de profesores según el tipo seleccionado
+            let distribution_percentages = {};
+            
+            switch(distribution) {
+                case 'equal':
+                    // Distribución uniforme
+                    categories.forEach(cat => {
+                        dedications.forEach(ded => {
+                            distribution_percentages[`${cat}_${ded}`] = 1 / (categories.length * dedications.length);
+                        });
+                    });
+                    break;
+                
+                case 'pyramid':
+                    // Más auxiliares, menos titulares
+                    distribution_percentages = {
+                        'auxiliar_tc': 0.25,
+                        'auxiliar_mt': 0.20,
+                        'asistente_tc': 0.15,
+                        'asistente_mt': 0.15,
+                        'asociado_tc': 0.10,
+                        'asociado_mt': 0.08,
+                        'titular_tc': 0.04,
+                        'titular_mt': 0.03
+                    };
+                    break;
+                
+                case 'inverse':
+                    // Más titulares, menos auxiliares
+                    distribution_percentages = {
+                        'auxiliar_tc': 0.04,
+                        'auxiliar_mt': 0.03,
+                        'asistente_tc': 0.10,
+                        'asistente_mt': 0.08,
+                        'asociado_tc': 0.15,
+                        'asociado_mt': 0.15,
+                        'titular_tc': 0.25,
+                        'titular_mt': 0.20
+                    };
+                    break;
+            }
+            
+            // Calcular el costo mensual total
+            categories.forEach(cat => {
+                dedications.forEach(ded => {
+                    const count = Math.round(numProfessors * distribution_percentages[`${cat}_${ded}`]);
+                    
+                    // Suponemos distribución de cualificaciones y grupos de investigación
+                    const baseSalary = SALARY_FACTORS[cat][ded] * smmlv;
+                    
+                    // Estimación promedio de bonificaciones según la categoría
+                    let avgQualificationBonus = 0;
+                    let avgResearchBonus = 0;
+                    
+                    if (cat === 'auxiliar') {
+                        avgQualificationBonus = QUALIFICATION_FACTORS['especializacion'] * smmlv * 0.7;
+                        avgResearchBonus = RESEARCH_FACTORS['semillero'] * smmlv * 0.3;
+                    } else if (cat === 'asistente') {
+                        avgQualificationBonus = (QUALIFICATION_FACTORS['especializacion'] * 0.5 + QUALIFICATION_FACTORS['maestria'] * 0.5) * smmlv;
+                        avgResearchBonus = (RESEARCH_FACTORS['semillero'] * 0.4 + RESEARCH_FACTORS['c'] * 0.3) * smmlv;
+                    } else if (cat === 'asociado') {
+                        avgQualificationBonus = (QUALIFICATION_FACTORS['maestria'] * 0.7 + QUALIFICATION_FACTORS['doctorado'] * 0.3) * smmlv;
+                        avgResearchBonus = (RESEARCH_FACTORS['c'] * 0.3 + RESEARCH_FACTORS['b'] * 0.3 + RESEARCH_FACTORS['a'] * 0.2) * smmlv;
+                    } else {
+                        avgQualificationBonus = (QUALIFICATION_FACTORS['maestria'] * 0.3 + QUALIFICATION_FACTORS['doctorado'] * 0.7) * smmlv;
+                        avgResearchBonus = (RESEARCH_FACTORS['b'] * 0.2 + RESEARCH_FACTORS['a'] * 0.3 + RESEARCH_FACTORS['a1'] * 0.3) * smmlv;
+                    }
+                    
+                    const avgSalary = baseSalary + avgQualificationBonus + avgResearchBonus;
+                    totalMonthlyCost += avgSalary * count;
+                });
+            });
+            
+            const annualCost = totalMonthlyCost * 12;
+            
+            // Supongamos un presupuesto anual estimado para la universidad
+            const estimatedBudget = 150000000000; // 150 mil millones de pesos (estimado)
+            const budgetPercentage = (annualCost / estimatedBudget) * 100;
+            
+            // Mostrar resultados
+            document.getElementById('monthly-cost').textContent = formatCurrency(totalMonthlyCost);
+            document.getElementById('annual-cost').textContent = formatCurrency(annualCost);
+            document.getElementById('budget-percentage').textContent = budgetPercentage.toFixed(2) + '%';
+            
+            // Mostrar los resultados
+            document.getElementById('impact-results').style.display = 'block';
+        }
+        
+        // Event Listeners
+        document.getElementById('calculate-btn').addEventListener('click', calculateSalary);
+        document.getElementById('run-simulation-btn').addEventListener('click', runSimulation);
+        document.getElementById('reset-simulation-btn').addEventListener('click', () => {
+            document.getElementById('chart').innerHTML = '';
+            document.getElementById('simulation-results').innerHTML = '<p>Ejecute una simulación para ver los resultados detallados.</p>';
+        });
+        document.getElementById('calculate-impact-btn').addEventListener('click', calculateImpact);
+        
+        // Calcular salario inicial al cargar la página
+        document.addEventListener('DOMContentLoaded', calculateSalary);
+    </script>
+</body>
+</html>
