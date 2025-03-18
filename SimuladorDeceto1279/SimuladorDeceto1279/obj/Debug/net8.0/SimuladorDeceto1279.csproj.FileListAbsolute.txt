@@ -1,0 +1,64 @@
+C:\Users\Willy\source\repos\SimuladorDeceto1279\SimuladorDeceto1279\obj\Debug\net8.0\SimuladorDeceto1279.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Willy\source\repos\SimuladorDeceto1279\SimuladorDeceto1279\obj\Debug\net8.0\SimuladorDeceto1279.AssemblyInfoInputs.cache
+C:\Users\Willy\source\repos\SimuladorDeceto1279\SimuladorDeceto1279\obj\Debug\net8.0\SimuladorDeceto1279.AssemblyInfo.cs
+C:\Users\Willy\source\repos\SimuladorDeceto1279\SimuladorDeceto1279\obj\Debug\net8.0\SimuladorDeceto1279.csproj.CoreCompileInputs.cache
+C:\Users\Willy\source\repos\SimuladorDeceto1279\SimuladorDeceto1279\obj\Debug\net8.0\SimuladorDeceto1279.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\Willy\source\repos\SimuladorDeceto1279\SimuladorDeceto1279\obj\Debug\net8.0\SimuladorDeceto1279.RazorAssemblyInfo.cache
+C:\Users\Willy\source\repos\SimuladorDeceto1279\SimuladorDeceto1279\obj\Debug\net8.0\SimuladorDeceto1279.RazorAssemblyInfo.cs
+C:\Users\Willy\source\repos\SimuladorDeceto1279\SimuladorDeceto1279\bin\Debug\net8.0\appsettings.Development.json
+C:\Users\Willy\source\repos\SimuladorDeceto1279\SimuladorDeceto1279\bin\Debug\net8.0\appsettings.json
+C:\Users\Willy\source\repos\SimuladorDeceto1279\SimuladorDeceto1279\bin\Debug\net8.0\SimuladorDeceto1279.staticwebassets.runtime.json
+C:\Users\Willy\source\repos\SimuladorDeceto1279\SimuladorDeceto1279\bin\Debug\net8.0\SimuladorDeceto1279.exe
+C:\Users\Willy\source\repos\SimuladorDeceto1279\SimuladorDeceto1279\bin\Debug\net8.0\SimuladorDeceto1279.deps.json
+C:\Users\Willy\source\repos\SimuladorDeceto1279\SimuladorDeceto1279\bin\Debug\net8.0\SimuladorDeceto1279.runtimeconfig.json
+C:\Users\Willy\source\repos\SimuladorDeceto1279\SimuladorDeceto1279\bin\Debug\net8.0\SimuladorDeceto1279.dll
+C:\Users\Willy\source\repos\SimuladorDeceto1279\SimuladorDeceto1279\bin\Debug\net8.0\SimuladorDeceto1279.pdb
+C:\Users\Willy\source\repos\SimuladorDeceto1279\SimuladorDeceto1279\obj\Debug\net8.0\staticwebassets.build.json
+C:\Users\Willy\source\repos\SimuladorDeceto1279\SimuladorDeceto1279\obj\Debug\net8.0\staticwebassets.development.json
+C:\Users\Willy\source\repos\SimuladorDeceto1279\SimuladorDeceto1279\obj\Debug\net8.0\staticwebassets\msbuild.SimuladorDeceto1279.Microsoft.AspNetCore.StaticWebAssets.props
+C:\Users\Willy\source\repos\SimuladorDeceto1279\SimuladorDeceto1279\obj\Debug\net8.0\staticwebassets\msbuild.build.SimuladorDeceto1279.props
+C:\Users\Willy\source\repos\SimuladorDeceto1279\SimuladorDeceto1279\obj\Debug\net8.0\staticwebassets\msbuild.buildMultiTargeting.SimuladorDeceto1279.props
+C:\Users\Willy\source\repos\SimuladorDeceto1279\SimuladorDeceto1279\obj\Debug\net8.0\staticwebassets\msbuild.buildTransitive.SimuladorDeceto1279.props
+C:\Users\Willy\source\repos\SimuladorDeceto1279\SimuladorDeceto1279\obj\Debug\net8.0\staticwebassets.pack.json
+C:\Users\Willy\source\repos\SimuladorDeceto1279\SimuladorDeceto1279\obj\Debug\net8.0\scopedcss\Pages\Shared\_Layout.cshtml.rz.scp.css
+C:\Users\Willy\source\repos\SimuladorDeceto1279\SimuladorDeceto1279\obj\Debug\net8.0\scopedcss\bundle\SimuladorDeceto1279.styles.css
+C:\Users\Willy\source\repos\SimuladorDeceto1279\SimuladorDeceto1279\obj\Debug\net8.0\scopedcss\projectbundle\SimuladorDeceto1279.bundle.scp.css
+C:\Users\Willy\source\repos\SimuladorDeceto1279\SimuladorDeceto1279\obj\Debug\net8.0\SimuladorDeceto1279.dll
+C:\Users\Willy\source\repos\SimuladorDeceto1279\SimuladorDeceto1279\obj\Debug\net8.0\refint\SimuladorDeceto1279.dll
+C:\Users\Willy\source\repos\SimuladorDeceto1279\SimuladorDeceto1279\obj\Debug\net8.0\SimuladorDeceto1279.pdb
+C:\Users\Willy\source\repos\SimuladorDeceto1279\SimuladorDeceto1279\obj\Debug\net8.0\SimuladorDeceto1279.genruntimeconfig.cache
+C:\Users\Willy\source\repos\SimuladorDeceto1279\SimuladorDeceto1279\obj\Debug\net8.0\ref\SimuladorDeceto1279.dll
+C:\Users\José A. Rodríguez\Downloads\SimuladorDeceto1279\SimuladorDeceto1279\SimuladorDeceto1279\bin\Debug\net8.0\appsettings.Development.json
+C:\Users\José A. Rodríguez\Downloads\SimuladorDeceto1279\SimuladorDeceto1279\SimuladorDeceto1279\bin\Debug\net8.0\appsettings.json
+C:\Users\José A. Rodríguez\Downloads\SimuladorDeceto1279\SimuladorDeceto1279\SimuladorDeceto1279\bin\Debug\net8.0\SimuladorDeceto1279.staticwebassets.runtime.json
+C:\Users\José A. Rodríguez\Downloads\SimuladorDeceto1279\SimuladorDeceto1279\SimuladorDeceto1279\bin\Debug\net8.0\SimuladorDeceto1279.staticwebassets.endpoints.json
+C:\Users\José A. Rodríguez\Downloads\SimuladorDeceto1279\SimuladorDeceto1279\SimuladorDeceto1279\bin\Debug\net8.0\SimuladorDeceto1279.exe
+C:\Users\José A. Rodríguez\Downloads\SimuladorDeceto1279\SimuladorDeceto1279\SimuladorDeceto1279\bin\Debug\net8.0\SimuladorDeceto1279.deps.json
+C:\Users\José A. Rodríguez\Downloads\SimuladorDeceto1279\SimuladorDeceto1279\SimuladorDeceto1279\bin\Debug\net8.0\SimuladorDeceto1279.runtimeconfig.json
+C:\Users\José A. Rodríguez\Downloads\SimuladorDeceto1279\SimuladorDeceto1279\SimuladorDeceto1279\bin\Debug\net8.0\SimuladorDeceto1279.dll
+C:\Users\José A. Rodríguez\Downloads\SimuladorDeceto1279\SimuladorDeceto1279\SimuladorDeceto1279\bin\Debug\net8.0\SimuladorDeceto1279.pdb
+C:\Users\José A. Rodríguez\Downloads\SimuladorDeceto1279\SimuladorDeceto1279\SimuladorDeceto1279\obj\Debug\net8.0\SimuladorDeceto1279.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\José A. Rodríguez\Downloads\SimuladorDeceto1279\SimuladorDeceto1279\SimuladorDeceto1279\obj\Debug\net8.0\SimuladorDeceto1279.AssemblyInfoInputs.cache
+C:\Users\José A. Rodríguez\Downloads\SimuladorDeceto1279\SimuladorDeceto1279\SimuladorDeceto1279\obj\Debug\net8.0\SimuladorDeceto1279.AssemblyInfo.cs
+C:\Users\José A. Rodríguez\Downloads\SimuladorDeceto1279\SimuladorDeceto1279\SimuladorDeceto1279\obj\Debug\net8.0\SimuladorDeceto1279.csproj.CoreCompileInputs.cache
+C:\Users\José A. Rodríguez\Downloads\SimuladorDeceto1279\SimuladorDeceto1279\SimuladorDeceto1279\obj\Debug\net8.0\SimuladorDeceto1279.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\José A. Rodríguez\Downloads\SimuladorDeceto1279\SimuladorDeceto1279\SimuladorDeceto1279\obj\Debug\net8.0\SimuladorDeceto1279.RazorAssemblyInfo.cache
+C:\Users\José A. Rodríguez\Downloads\SimuladorDeceto1279\SimuladorDeceto1279\SimuladorDeceto1279\obj\Debug\net8.0\SimuladorDeceto1279.RazorAssemblyInfo.cs
+C:\Users\José A. Rodríguez\Downloads\SimuladorDeceto1279\SimuladorDeceto1279\SimuladorDeceto1279\obj\Debug\net8.0\scopedcss\Pages\Shared\_Layout.cshtml.rz.scp.css
+C:\Users\José A. Rodríguez\Downloads\SimuladorDeceto1279\SimuladorDeceto1279\SimuladorDeceto1279\obj\Debug\net8.0\scopedcss\bundle\SimuladorDeceto1279.styles.css
+C:\Users\José A. Rodríguez\Downloads\SimuladorDeceto1279\SimuladorDeceto1279\SimuladorDeceto1279\obj\Debug\net8.0\scopedcss\projectbundle\SimuladorDeceto1279.bundle.scp.css
+C:\Users\José A. Rodríguez\Downloads\SimuladorDeceto1279\SimuladorDeceto1279\SimuladorDeceto1279\obj\Debug\net8.0\staticwebassets.build.json
+C:\Users\José A. Rodríguez\Downloads\SimuladorDeceto1279\SimuladorDeceto1279\SimuladorDeceto1279\obj\Debug\net8.0\staticwebassets.development.json
+C:\Users\José A. Rodríguez\Downloads\SimuladorDeceto1279\SimuladorDeceto1279\SimuladorDeceto1279\obj\Debug\net8.0\staticwebassets.build.endpoints.json
+C:\Users\José A. Rodríguez\Downloads\SimuladorDeceto1279\SimuladorDeceto1279\SimuladorDeceto1279\obj\Debug\net8.0\staticwebassets\msbuild.SimuladorDeceto1279.Microsoft.AspNetCore.StaticWebAssets.props
+C:\Users\José A. Rodríguez\Downloads\SimuladorDeceto1279\SimuladorDeceto1279\SimuladorDeceto1279\obj\Debug\net8.0\staticwebassets\msbuild.SimuladorDeceto1279.Microsoft.AspNetCore.StaticWebAssetEndpoints.props
+C:\Users\José A. Rodríguez\Downloads\SimuladorDeceto1279\SimuladorDeceto1279\SimuladorDeceto1279\obj\Debug\net8.0\staticwebassets\msbuild.build.SimuladorDeceto1279.props
+C:\Users\José A. Rodríguez\Downloads\SimuladorDeceto1279\SimuladorDeceto1279\SimuladorDeceto1279\obj\Debug\net8.0\staticwebassets\msbuild.buildMultiTargeting.SimuladorDeceto1279.props
+C:\Users\José A. Rodríguez\Downloads\SimuladorDeceto1279\SimuladorDeceto1279\SimuladorDeceto1279\obj\Debug\net8.0\staticwebassets\msbuild.buildTransitive.SimuladorDeceto1279.props
+C:\Users\José A. Rodríguez\Downloads\SimuladorDeceto1279\SimuladorDeceto1279\SimuladorDeceto1279\obj\Debug\net8.0\staticwebassets.pack.json
+C:\Users\José A. Rodríguez\Downloads\SimuladorDeceto1279\SimuladorDeceto1279\SimuladorDeceto1279\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt
+C:\Users\José A. Rodríguez\Downloads\SimuladorDeceto1279\SimuladorDeceto1279\SimuladorDeceto1279\obj\Debug\net8.0\SimuladorDeceto1279.dll
+C:\Users\José A. Rodríguez\Downloads\SimuladorDeceto1279\SimuladorDeceto1279\SimuladorDeceto1279\obj\Debug\net8.0\refint\SimuladorDeceto1279.dll
+C:\Users\José A. Rodríguez\Downloads\SimuladorDeceto1279\SimuladorDeceto1279\SimuladorDeceto1279\obj\Debug\net8.0\SimuladorDeceto1279.pdb
+C:\Users\José A. Rodríguez\Downloads\SimuladorDeceto1279\SimuladorDeceto1279\SimuladorDeceto1279\obj\Debug\net8.0\SimuladorDeceto1279.genruntimeconfig.cache
+C:\Users\José A. Rodríguez\Downloads\SimuladorDeceto1279\SimuladorDeceto1279\SimuladorDeceto1279\obj\Debug\net8.0\ref\SimuladorDeceto1279.dll

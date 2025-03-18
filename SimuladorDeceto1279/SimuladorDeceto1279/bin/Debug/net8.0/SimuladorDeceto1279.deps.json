@@ -1,0 +1,23 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v8.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v8.0": {
+      "SimuladorDeceto1279/1.0.0": {
+        "runtime": {
+          "SimuladorDeceto1279.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "SimuladorDeceto1279/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}

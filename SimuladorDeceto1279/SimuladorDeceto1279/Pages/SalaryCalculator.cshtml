@@ -1,0 +1,574 @@
+﻿@page
+@model SimuladorDeceto1279.Pages.SalaryCalculatorModel
+@{
+    ViewData["Title"] = "Simulador de Salarios Docentes - Decreto 1279";
+}
+
+<div class="container-fluid">
+    <div class="row bg-primary text-white py-3 mb-4">
+        <div class="col-12 text-center">
+            <h1 class="display-4">Simulador de Salarios Docentes</h1>
+            <p class="lead">Basado en el Decreto 1279 de 2002</p>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-4">
+            <div class="card shadow mb-4">
+                <div class="card-header bg-info text-white">
+                    <h3>Datos del Docente</h3>
+                </div>
+                <div class="card-body">
+                    <form method="post">
+                        <div class="form-group mb-3">
+                            <label for="ValorPunto">Valor del Punto (COP)</label>
+                            <input type="number" id="ValorPunto" name="ValorPunto" class="form-control" value="@Model.ValorPunto" />
+                            <small class="form-text text-muted">Valor actual estimado: $20,895 COP (2025)</small>
+                        </div>
+
+                        @Model.TipoPregrado
+
+                        <div class="form-group mb-3">
+                            <label for="TipoPregrado">Título de Pregrado</label>
+                            <select id="TipoPregrado" name="TipoPregrado" class="form-control">
+                                <option value="Normal" selected="@(Model.TipoPregrado == "Normal" ? "selected" : null)">Pregrado Regular</option>
+                                <option value="Medicina Humana" selected="@(Model.TipoPregrado == "Medicina Humana" ? "selected" : null)">Medicina Humana</option>
+                                <option value="Composición Musical" selected="@(Model.TipoPregrado == "Composición Musical" ? "selected" : null)">Musical</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label>Títulos de Posgrado</label>
+
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="TieneEspecializacion" name="TieneEspecializacion"
+                                       value="true" @(Model.TieneEspecializacion ? "checked" : "") onchange="toggleField('TieneEspecializacion', 'AñosEspecializacion')" />
+                                <input type="hidden" name="TieneEspecializacion" value="false" />
+                                <label class="form-check-label" for="TieneEspecializacion">
+                                    Especialización
+                                </label>
+                            </div>
+
+                            <div id="AñosEspecializacionField" class="mt-2" style="display: @(Model.TieneEspecializacion ? "block" : "none");">
+                                <label for="AñosEspecializacion">N° Años</label>
+                                <input type="number" id="AñosEspecializacion" name="AñosEspecializacion" class="form-control"
+                                       value="@(Model.AñosEspecializacion > 0 ? Model.AñosEspecializacion : 1)"
+                                       min="1" max="5">
+                            </div>
+
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="TieneMaestria" name="TieneMaestria"
+                                       value="true" @(Model.TieneMaestria ? "checked" : "") onchange="toggleField('TieneMaestria', 'CantidadMaestrias')" />
+                                <input type="hidden" name="TieneMaestria" value="false" />
+                                <label class="form-check-label" for="TieneMaestria">
+                                    Maestría
+                                </label>
+                            </div>
+
+                            <!-- Campo para Maestrías -->
+                            <div id="CantidadMaestriasField" class="mt-2" style="display: @(Model.TieneMaestria ? "block" : "none");">
+                                <label for="CantidadMaestrias">Cantidad de Maestrías</label>
+                                <input type="number" id="CantidadMaestrias" name="CantidadMaestrias" class="form-control"
+                                       value="@(Model.CantidadMaestrias > 0 ? Model.CantidadMaestrias : 1)"
+                                       min="1" max="3">
+                            </div>
+
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="TieneDoctorado" name="TieneDoctorado" value="true"
+                                @(Model.TieneDoctorado ?? false ? "checked" : "")
+                                       onchange="toggleField('TieneDoctorado', 'CantidadDoctorados'); toggleField('TieneDoctorado', 'DoctoradoAntesDe1998')" />
+                                <label class="form-check-label" for="TieneDoctorado">
+                                    Ph.D. o Doctorado
+                                </label>
+                            </div>
+
+                            <!-- Campo para Doctorados -->
+                            <div id="CantidadDoctoradosField" class="mt-2" style="display: @(Model.TieneDoctorado ?? false ? "block" : "none");">
+                                <label for="CantidadDoctorados">Cantidad de Doctorados</label>
+                                <input type="number" id="CantidadDoctorados" name="CantidadDoctorados" class="form-control"
+                                       value="@(Model.CantidadDoctorados > 0 ? Model.CantidadDoctorados : 1)"
+                                       min="1" max="2">
+                            </div>
+
+                            <!-- Checkbox para verificar si el Doctorado fue obtenido antes de 1998 -->
+                            <div id="DoctoradoAntesDe1998Field" class="mt-2" style="display: @(Model.TieneDoctorado ?? false ? "block" : "none");">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="DoctoradoAntesDe1998" name="DoctoradoAntesDe1998"
+                                           value="true" @(Model.DoctoradoAntesDe1998 ?? false ? "checked" : "") />
+                                    <input type="hidden" name="DoctoradoAntesDe1998" value="false" />
+                                    <label class="form-check-label" for="DoctoradoAntesDe1998">
+                                        Título de Doctorado obtenido antes de 1998
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label for="Categoria">Categoría Académica</label>
+                            <select id="Categoria" name="Categoria" class="form-control">
+                                <option value="Auxiliar" selected="@(Model.Categoria == "Auxiliar" ? "selected" : null)">Profesor Auxiliar</option>
+                                <option value="Asistente" selected="@(Model.Categoria == "Asistente" ? "selected" : null)">Profesor Asistente</option>
+                                <option value="Asociado" selected="@(Model.Categoria == "Asociado" ? "selected" : null)">Profesor Asociado</option>
+                                <option value="Titular" selected="@(Model.Categoria == "Titular" ? "selected" : null)">Profesor Titular</option>
+                                <option value="Nacional" selected="@(Model.Categoria == "Nacional" ? "selected" : null)">Profesor Asociado Universidad Nacional</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label for="AñosExperienciaInvestigacion">Años de Experiencia Investigacion</label>
+                            <input type="number" id="AñosExperienciaInvestigacion" name="AñosExperienciaInvestigacion" class="form-control" value="@Model.AñosExperienciaInvestigacion" />
+                        </div>
+
+
+                        <div class="form-group mb-3">
+                            <label for="AñosExperienciaDocente">Años de Experiencia Docente</label>
+                            <input type="number" id="AñosExperienciaDocente" name="AñosExperienciaDocente" class="form-control" value="@Model.AñosExperienciaDocente" />
+                        </div>
+
+
+                        <div class="form-group mb-3">
+                            <label for="AñosExperienciaDireccion">Años de Experiencia Direccion</label>
+                            <input type="number" id="AñosExperienciaDireccion" name="AñosExperienciaDireccion" class="form-control" value="@Model.AñosExperienciaDireccion" />
+                        </div>
+
+
+                        <div class="form-group mb-3">
+                            <label for="AñosExperienciaProfesional">Años de Experiencia Profesional</label>
+                            <input type="number" id="AñosExperienciaProfesional" name="AñosExperienciaProfesional" class="form-control" value="@Model.AñosExperienciaProfesional" />
+                        </div>
+
+                        <!-- Sección de Revistas Especializadas -->
+                        <div class="card shadow mb-4">
+                            <div class="card-header bg-secondary text-white">
+                                <h3>Productividad</h3>
+                            </div>
+                            <div class="card-body">
+                                <p><strong>Artículos en revistas indexadas por MINCIENCIAS</strong></p>
+
+                                <!-- Lista de categorías de revistas -->
+                                <div class="mb-3">
+                                    <label for="ArticulosA1">Revistas A1</label>
+                                    <select id="ArticulosA1" name="ArticulosA1" class="form-control" onchange="generarCamposAutores('A1')">
+                                        <option value="0">0</option>
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                        <option value="5">5</option>
+                                    </select>
+                                    <div id="autoresA1"></div>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="ArticulosA2">Revistas A2</label>
+                                    <select id="ArticulosA2" name="ArticulosA2" class="form-control" onchange="generarCamposAutores('A2')">
+                                        <option value="0">0</option>
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                        <option value="5">5</option>
+                                    </select>
+                                    <div id="autoresA2"></div>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="ArticulosB">Revistas B</label>
+                                    <select id="ArticulosB" name="ArticulosB" class="form-control" onchange="generarCamposAutores('B')">
+                                        <option value="0">0</option>
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                        <option value="5">5</option>
+                                    </select>
+                                    <div id="autoresB"></div>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="ArticulosC">Revistas C</label>
+                                    <select id="ArticulosC" name="ArticulosC" class="form-control" onchange="generarCamposAutores('C')">
+                                        <option value="0">0</option>
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                        <option value="5">5</option>
+                                    </select>
+                                    <div id="autoresC"></div>
+                                </div>
+
+                                <p><strong>Producción de Videos Cinematográficos o Fonográficos</strong></p>
+                                <div class="mb-3">
+                                    <label for="VideosInternacionales">Difusión de Impacto Internacional</label>
+                                    <select id="VideosInternacionales" name="VideosInternacionales" class="form-control">
+                                        <option value="0">0</option>
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                    </select>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="VideosNacionales">Difusión de Impacto Nacional</label>
+                                    <select id="VideosNacionales" name="VideosNacionales" class="form-control">
+                                        <option value="0">0</option>
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                    </select>
+                                </div>
+
+                                <p><strong>Libros</strong></p>
+                                <div class="mb-3">
+                                    <label for="LibrosInvestigacion">Libros de Investigación</label>
+                                    <select id="LibrosInvestigacion" name="LibrosInvestigacion" class="form-control">
+                                        <option value="0">0</option>
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                    </select>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="LibrosTexto">Libros de Texto</label>
+                                    <select id="LibrosTexto" name="LibrosTexto" class="form-control">
+                                        <option value="0">0</option>
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                    </select>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="LibrosEnsayo">Libros de Ensayo</label>
+                                    <select id="LibrosEnsayo" name="LibrosEnsayo" class="form-control">
+                                        <option value="0">0</option>
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                    </select>
+                                </div>
+
+                                <p><strong>Producción Técnica</strong></p>
+                                <div class="mb-3">
+                                    <label for="InnovacionTecnologica">Innovación Tecnológica</label>
+                                    <select id="InnovacionTecnologica" name="InnovacionTecnologica" class="form-control">
+                                        <option value="0">0</option>
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                    </select>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="AdaptacionTecnologica">Adaptación Tecnológica</label>
+                                    <select id="AdaptacionTecnologica" name="AdaptacionTecnologica" class="form-control">
+                                        <option value="0">0</option>
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group mb-3">
+                                    <label for="PonenciasInternacionales">Ponencias Internacionales</label>
+                                    <input type="number" id="PonenciasInternacionales" name="PonenciasInternacionales" class="form-control" value="@Model.AñosExperienciaDireccion" />
+                                </div>
+
+                                <div class="form-group mb-3">
+                                    <label for="PonenciasNacionales">Ponencias Nacionales</label>
+                                    <input type="number" id="PonenciasNacionales" name="PonenciasNacionales" class="form-control" value="@Model.AñosExperienciaDireccion" />
+                                </div>
+
+                                <div class="form-group mb-3">
+                                    <label for="PonenciasRegionales">Ponencias Regionales</label>
+                                    <input type="number" id="PonenciasRegionales" name="PonenciasRegionales" class="form-control" value="@Model.AñosExperienciaDireccion" />
+                                </div>
+
+                                <div class="form-group mb-3">
+                                    <label for="DireccionTesisMaestria">Direccion Tesis Maestria</label>
+                                    <input type="number" id="DireccionTesisMaestria" name="DireccionTesisMaestria" class="form-control" value="@Model.AñosExperienciaDireccion" />
+                                </div>
+
+                                <div class="form-group mb-3">
+                                    <label for="DireccionTesisDoctorado">Direccion Tesis Doctorado</label>
+                                    <input type="number" id="DireccionTesisDoctorado" name="DireccionTesisDoctorado" class="form-control" value="@Model.AñosExperienciaDireccion" />
+                                </div>
+                            </div>
+                        </div>
+
+
+
+
+
+                        <div class="form-group mb-3">
+                            <label for="TieneCargo">Cargo Administrativo</label>
+                            <select id="TieneCargo" name="TieneCargo" class="form-control">
+                                <option value="Ninguno" selected="@(Model.TieneCargo == "Ninguno" ? "selected" : null)">Ninguno</option>
+                                <option value="Rector" selected="@(Model.TieneCargo == "Rector" ? "selected" : null)">Rector</option>
+                                <option value="Vicerrector" selected="@(Model.TieneCargo == "Vicerrector" ? "selected" : null)">Vicerrector</option>
+                                <option value="Decano" selected="@(Model.TieneCargo == "Decano" ? "selected" : null)">Decano</option>
+                                <option value="Vicedecano" selected="@(Model.TieneCargo == "Vicedecano" ? "selected" : null)">Vicedecano</option>
+                                <option value="Director de Departamento" selected="@(Model.TieneCargo == "Director de Departamento" ? "selected" : null)">Director de Departamento</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label for="AñosCargo">Años en el Cargo</label>
+                            <input type="number" id="AñosCargo" name="AñosCargo" class="form-control" value="@Model.AñosCargo" />
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label for="Dedicacion">Dedicación</label>
+                            <select id="Dedicacion" name="Dedicacion" class="form-control">
+                                <option value="1.0" selected="@(Model.Dedicacion == 1.0M ? "selected" : null)">Tiempo Completo</option>
+                                <option value="0.5" selected="@(Model.Dedicacion == 0.5M ? "selected" : null)">Medio Tiempo</option>
+                                <option value="0.25" selected="@(Model.Dedicacion == 0.25M ? "selected" : null)">Cuarto de Tiempo</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="DesempeñoDestacado" name="DesempeñoDestacado" @(Model.DesempeñoDestacado ? "checked" : "") />
+                                <label class="form-check-label" for="DesempeñoDestacado">
+                                    Desempeño Destacado en Docencia/Extensión
+                                </label>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary w-100">Calcular Salario</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-8">
+            <div class="card shadow mb-4">
+                <div class="card-header bg-success text-white">
+                    <h3>Resultados del Cálculo</h3>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="card bg-light mb-3">
+                                <div class="card-header">Asignación de Puntos</div>
+                                <div class="card-body">
+                                    <table class="table table-hover">
+                                        <tbody>
+                                            <tr>
+                                                <td>Puntos por Títulos</td>
+                                                <td class="text-end"><strong>@Model.PuntosTitulos</strong></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Puntos por Categoría</td>
+                                                <td class="text-end"><strong>@Model.PuntosCategoria</strong></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Puntos por Experiencia</td>
+                                                <td class="text-end"><strong>@Model.PuntosExperiencia</strong></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Puntos por Productividad</td>
+                                                <td class="text-end"><strong>@Model.PuntosProductividad</strong></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Puntos por Cargo Administrativo</td>
+                                                <td class="text-end"><strong>@Model.PuntosCargo</strong></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Puntos por Desempeño</td>
+                                                <td class="text-end"><strong>@Model.PuntosDesempeño</strong></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Puntos por Experiencia Anual</td>
+                                                <td class="text-end"><strong>@Model.PuntosExperienciaAnual</strong></td>
+                                            </tr>
+                                            <tr class="table-primary">
+                                                <td><strong>Total de Puntos</strong></td>
+                                                <td class="text-end"><strong>@Model.TotalPuntos</strong></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card text-white bg-primary mb-3">
+                                <div class="card-header">Remuneración Mensual</div>
+                                <div class="card-body">
+                                    <h2 class="display-4 text-center">$@string.Format("{0:N0}", Model.SalarioMensual)</h2>
+                                    <p class="text-center">Pesos Colombianos</p>
+                                    <div class="alert alert-light mt-3">
+                                        <p class="mb-0">Total Puntos: <strong>@Model.TotalPuntos</strong></p>
+                                        <p class="mb-0">Valor del Punto: <strong>$@string.Format("{0:N0}", Model.ValorPunto)</strong></p>
+                                        <p class="mb-0">Dedicación: <strong>@(Model.Dedicacion * 100)%</strong></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Proyección del Salario -->
+                    <div class="card shadow mb-4">
+                        <div class="card-header bg-warning">
+                            <h4>Proyección del Salario para los Próximos 5 Años</h4>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-bordered table-hover">
+                                    <thead class="table-dark">
+                                        <tr>
+                                            <th>Año</th>
+                                            <th>Valor del Punto (COP)</th>
+                                            <th>Total Puntos</th>
+                                            <th>Salario Mensual (COP)</th>
+                                            <th>Incremento %</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>@DateTime.Now.Year</td>
+                                            <td>@string.Format("{0:N0}", Model.ValorPunto)</td>
+                                            <td>@Model.TotalPuntos</td>
+                                            <td>@string.Format("{0:N0}", Model.SalarioMensual)</td>
+                                            <td>-</td>
+                                        </tr>
+                                        @for (int i = 0; i < Model.ProyeccionSalarial.Count; i++)
+                                        {
+                                            var proyeccion = Model.ProyeccionSalarial[i];
+                                            var incremento = i == 0 
+                                                ? (proyeccion.SalarioMensual / Model.SalarioMensual - 1) * 100 
+                                                : (proyeccion.SalarioMensual / Model.ProyeccionSalarial[i - 1].SalarioMensual - 1) * 100;
+                                            <tr>
+                                                <td>@proyeccion.Año</td>
+                                                <td>@string.Format("{0:N0}", proyeccion.ValorPunto)</td>
+                                                <td>@proyeccion.TotalPuntos</td>
+                                                <td>@string.Format("{0:N0}", proyeccion.SalarioMensual)</td>
+                                                <td>@string.Format("{0:N2}", incremento)%</td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                            <p class="small text-muted mt-2">
+                                * Esta proyección asume un incremento anual del 6% en el valor del punto y una acumulación promedio de 3 puntos adicionales por año.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Comparativa de Escenarios -->
+                    <div class="card shadow mb-4">
+                        <div class="card-header bg-info text-white">
+                            <h4>Comparativa de Escenarios</h4>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-striped table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>Escenario</th>
+                                            <th>Descripción</th>
+                                            <th>Total Puntos</th>
+                                            <th>Salario Mensual (COP)</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var escenario in Model.Escenarios)
+                                        {
+                                            <tr>
+                                                <td><strong>@escenario.Nombre</strong></td>
+                                                <td>@escenario.Descripcion</td>
+                                                <td>@escenario.TotalPuntos</td>
+                                                <td>@string.Format("{0:N0}", escenario.SalarioMensual)</td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Análisis de Riesgo Financiero -->
+                    <div class="card shadow">
+                        <div class="card-header bg-danger text-white">
+                            <h4>Análisis de Riesgo Financiero para la Universidad</h4>
+                        </div>
+                        <div class="card-body">
+                            <h5>Escenarios Extremos que Representan Riesgo Financiero:</h5>
+                            <ol>
+                                <li>
+                                    <strong>Alta concentración de profesores titulares con alta productividad:</strong> 
+                                    Si un gran porcentaje de la planta docente alcanza la categoría de titular y logra
+                                    acumular puntos de productividad cercanos al tope máximo (540 puntos), el impacto en la nómina sería dramático.
+                                </li>
+                                <li>
+                                    <strong>Producción académica masiva en corto tiempo:</strong> 
+                                    El reconocimiento de muchos productos académicos en poco tiempo podría causar
+                                    incrementos salariales súbitos difíciles de presupuestar.
+                                </li>
+                                <li>
+                                    <strong>Acumulación acelerada de títulos académicos:</strong> 
+                                    La obtención rápida de múltiples títulos de posgrado por muchos profesores
+                                    generaría costos significativos.
+                                </li>
+                                <li>
+                                    <strong>Incremento significativo del valor del punto:</strong> 
+                                    Decisiones gubernamentales que aumenten el valor del punto por encima
+                                    de la inflación generarían presiones presupuestales importantes.
+                                </li>
+                            </ol>
+
+                            <div class="alert alert-warning mt-3">
+                                <h5>Impacto Financiero Proyectado:</h5>
+                                <p>En un escenario extremo donde la mayoría de profesores logra acumular puntos cercanos a los topes máximos,
+                                el gasto en nómina docente podría representar hasta un <strong>75-80%</strong> del presupuesto total de funcionamiento
+                                de la universidad, comprometiendo su sostenibilidad financiera y limitando recursos para investigación e infraestructura.</p>
+                            </div>
+
+                            <div class="mt-3">
+                                <h5>Recomendaciones para Mitigar el Riesgo:</h5>
+                                <ul>
+                                    <li>Establecer políticas de renovación y balance de la planta docente</li>
+                                    <li>Implementar límites temporales a incrementos salariales por productividad</li>
+                                    <li>Desarrollar fondos de contingencia para impactos salariales</li>
+                                    <li>Mantener una distribución balanceada de profesores por categorías</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    function toggleField(checkboxId, fieldId) {
+        let checkbox = document.getElementById(checkboxId);
+        let fieldContainer = document.getElementById(fieldId + "Field");
+        let fieldInput = document.getElementById(fieldId);
+
+        if (checkbox.checked) {
+            fieldContainer.style.display = "block";
+            fieldInput.removeAttribute("disabled");
+            fieldInput.value = Math.max(1, fieldInput.value); // Asegurar un valor válido
+        } else {
+            fieldContainer.style.display = "none";
+            fieldInput.setAttribute("disabled", "true"); // Deshabilitar para evitar errores
+        }
+    }
+
+    function generarCamposAutores(tipo) {
+        let cantidad = document.getElementById('Articulos' + tipo).value;
+        let contenedor = document.getElementById('autores' + tipo);
+        contenedor.innerHTML = "";
+
+        for (let i = 1; i <= cantidad; i++) {
+            let input = `<div class='mb-2'>
+                                <label>Autores para Artículo ${i} (Revista ${tipo})</label>
+                                <input type='number' name='AutoresArticulos${tipo}${i}' class='form-control' min='1' max='10' value='1'/>
+                            </div>`;
+            contenedor.innerHTML += input;
+        }
+    }
+</script>
